@@ -22,7 +22,7 @@ SELECT DISTINCT idArtista FROM d_discos ORDER BY idArtista;
 / ARTISTAS CON DISCOS /
 SELECT a.nombre AS Artista  FROM d_artistas a WHERE idArtista IN (SELECT DISTINCT idArtista FROM d_discos ORDER BY idArtista);
 / ARTISTAS SIN DISCOS /
-SELECT a.nombre AS Artista  FROM d_artistas a WHERE idArtista NOT IN (SELECT DISTINCT idArtista FROM d_discos ORDER BY idArtista);
+SELECT a.nombre AS Artista FROM d_artistas a WHERE idArtista NOT IN (SELECT DISTINCT idArtista FROM d_discos ORDER BY idArtista);
 
 
 / Artistas con mas de dos discos. /
