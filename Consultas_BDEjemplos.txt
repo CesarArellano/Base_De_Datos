@@ -1,3 +1,4 @@
+Trucaxo = set sql_mode = '';
 / Artistas con numero de discos. /
 1.- SELECT d_artistas.nombre AS Artista, COUNT(isbn) AS No_Discos  FROM d_artistas LEFT JOIN d_discos USING(idArtista) GROUP BY idArtista;
 
