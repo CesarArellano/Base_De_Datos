@@ -1,0 +1,11 @@
+CREATE PROCEDURE ejemplo()
+BEGIN 
+    DECLARE 'Constraint Violation' 
+        CONDITION FOR SQLSTATE '23000';
+    DECLARE EXIT HANDLER FOR 
+        'Constrain Violation' ROLLBACK;
+    START  TRANSACTION;
+    INSERT INTO t2 VALUES(1);
+    INSERT INTO t2 VALUES(1);
+    COMMIT;
+END
