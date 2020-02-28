@@ -1,13 +1,13 @@
 CREATE VIEW vestudiantes AS SELECT Nombre, Calificacion FROM a_Alumnos LEFT JOIN a_Calificaciones USING (AlumnoID);
 
-CREATE PROCEDURE `MejorPromedio` (OUT Mejor_Promedio DECIMAL(5,2), OUT Mejor_Alumno CHAR(40))
+CREATE DEFINER=`ic19cav`@`localhost` PROCEDURE `MejorPromedio`(OUT Mejor_Promedio DECIMAL(5,2), OUT Mejor_Alumno CHAR(40))
 BEGIN
 	DECLARE Salida,Calif,Contador INT;
     DECLARE NomAlumno CHAR(40);
     DECLARE Promedio, CalTotal DECIMAL(5,2);
-    DECLARE CurCalif CURSOR FOR 
+    DECLARE CurCalif CURSOR FOR
 		SELECT Calificacion FROM vestudiantes WHERE Nombre = NomAlumno;
-	DECLARE CurAlumnos CURSOR FOR 
+	DECLARE CurAlumnos CURSOR FOR
 		SELECT Nombre FROM a_Alumnos;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET Salida = 1;
 	SET Promedio = 0;
@@ -39,6 +39,8 @@ BEGIN
             SET Mejor_Alumno =  NomAlumno;
             SET Promedio = CalTotal;
         END IF;
+        SET CalTotal = 0;
+        SET Contador = 0;
         UNTIL Salida = 1
     END REPEAT Cur_al;
     CLOSE CurAlumnos;
