@@ -45,10 +45,10 @@ int main(int argc, char *argv[])
 		printf("Error al obtener el query: %s\n", mysql_error(&mysql));
 		exit(1);
 	}
-	// Desplegamos el resultset
+	// Desplegamos el result set
 	while((row = mysql_fetch_row(res)))
 	{
-		for(i=0;i<mysql_num_fields(res);i++)
+		for(i=0; i<mysql_num_fields(res); i++)
 		{
 			if(row[i] != NULL)
 				printf("%s, ",row[i]);
