@@ -1,12 +1,14 @@
-USE 'ic19cav';
+CREATE DATABASE test;
+USE `test` ;
 
 -- -----------------------------------------------------
 -- Tabla `CategoriaClientes`
 -- -----------------------------------------------------
 CREATE TABLE `CategoriaClientes` (
-  `idCategoriaCliente` INT NOT NULL,
+  `idCategoriaCliente` INT NOT NULL AUTO_INCREMENT,
   `nombreCategoriaCliente` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idCategoriaCliente`));
+
 
 
 -- -----------------------------------------------------
@@ -26,11 +28,11 @@ CREATE TABLE `Clientes` (
   PRIMARY KEY (`idCliente`),
   UNIQUE INDEX `usuario_UNIQUE` (`usuario` ASC) VISIBLE,
   INDEX `ID Categoria Cliente_idx` (`idCategoriaCliente` ASC) VISIBLE,
-  CONSTRAINT `ID Categoria Cliente`
+  CONSTRAINT `ID Categoria Clientes`
     FOREIGN KEY (`idCategoriaCliente`)
     REFERENCES `CategoriaClientes` (`idCategoriaCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -46,7 +48,7 @@ CREATE TABLE `Departamentos` (
 -- Tabla `CategoriaProductos`
 -- -----------------------------------------------------
 CREATE TABLE `CategoriaProductos` (
-  `idCategoriaProducto` INT NOT NULL,
+  `idCategoriaProducto` INT NOT NULL AUTO_INCREMENT,
   `nombreCategoriaProducto` VARCHAR(45) NULL,
   PRIMARY KEY (`idCategoriaProducto`));
 
@@ -66,32 +68,32 @@ CREATE TABLE `Productos` (
   PRIMARY KEY (`idProducto`),
   INDEX `ID Departamento_idx` (`idDepartamento` ASC) VISIBLE,
   INDEX `ID Categoria Producto_idx` (`idCategoriaProducto` ASC) VISIBLE,
-  CONSTRAINT `ID Departamento`
+  CONSTRAINT `ID Departamento Productos`
     FOREIGN KEY (`idDepartamento`)
     REFERENCES `Departamentos` (`idDepartamento`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `ID Categoria Producto`
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `ID CategoriaProducto Productos`
     FOREIGN KEY (`idCategoriaProducto`)
     REFERENCES `CategoriaProductos` (`idCategoriaProducto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Tabla `Compras`
+-- Table `Compras`
 -- -----------------------------------------------------
-CREATE TABLE I`Compras` (
+CREATE TABLE `Compras` (
   `idCompra` INT NOT NULL AUTO_INCREMENT,
-  `idCliente` INT NOT NULL,
+  `idCliente` INT NULL,
   `formaPago` VARCHAR(45) NOT NULL,
   `fechaCompra` DATETIME NOT NULL,
   PRIMARY KEY (`idCompra`),
   INDEX `idCliente_idx` (`idCliente` ASC) VISIBLE,
-  CONSTRAINT `idCliente`
+  CONSTRAINT `idCliente Compras`
     FOREIGN KEY (`idCliente`)
     REFERENCES `Clientes` (`idCliente`)
-    ON DELETE CASCADE
+    ON DELETE SET NULL
     ON UPDATE CASCADE);
 
 
@@ -106,11 +108,11 @@ CREATE TABLE `HistorialAtencion` (
   `comentarios` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idAtencion`),
   INDEX `ID Cliente_idx` (`idCliente` ASC) VISIBLE,
-  CONSTRAINT `ID Cliente`
+  CONSTRAINT `ID Cliente HistorialAtencion`
     FOREIGN KEY (`idCliente`)
     REFERENCES `Clientes` (`idCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -124,36 +126,38 @@ CREATE TABLE `Opiniones` (
   PRIMARY KEY (`idOpinion`),
   INDEX `ID Cliente_idx` (`idCliente` ASC) VISIBLE,
   INDEX `ID Producto_idx` (`idProducto` ASC) VISIBLE,
-  CONSTRAINT `ID Cliente`
+  CONSTRAINT `ID Cliente Opiniones`
     FOREIGN KEY (`idCliente`)
     REFERENCES `Clientes` (`idCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `ID Producto`
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `ID Producto Opiniones`
     FOREIGN KEY (`idProducto`)
     REFERENCES `Productos` (`idProducto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Tabla `tarjetasClientes`
+-- Tabla `TarjetasClientes`
 -- -----------------------------------------------------
-CREATE TABLE `tarjetasClientes` (
+CREATE TABLE `TarjetasClientes` (
   `idTarjeta` INT NOT NULL AUTO_INCREMENT,
   `idCliente` INT NOT NULL,
-  `numeroTarjeta` INT(16) NOT NULL,
+  `numeroTarjeta` VARCHAR(16) NOT NULL,
   `tipoTarjeta` ENUM('Credito', 'Debito') NOT NULL,
-  `mesCaducidad` INT(2) NULL,
-  `anioCaducidad` INT(4) NULL,
-  `clave` INT(3) NULL,
+  `mesCaducidad` VARCHAR(2) NULL,
+  `anioCaducidad` VARCHAR(4) NULL,
+  `nombreTarjetaHabiente` VARCHAR(150) NOT NULL,
+  `institucionFinanciera` ENUM('American Express','Mastercard','Visa') NOT NULL,
   PRIMARY KEY (`idTarjeta`),
   INDEX `ID Cliente_idx` (`idCliente` ASC) VISIBLE,
-  CONSTRAINT `ID Cliente`
+  CONSTRAINT `ID Cliente TarjetasClientes` 
     FOREIGN KEY (`idCliente`)
     REFERENCES `Clientes` (`idCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
 
 -- -----------------------------------------------------
 -- Tabla `ComprasProductos`
@@ -161,38 +165,40 @@ CREATE TABLE `tarjetasClientes` (
 CREATE TABLE `ComprasProductos` (
   `idCompra` INT NOT NULL,
   `idProducto` INT NOT NULL,
-  `cantidad` INT NOT NULL,
+  `cantidadProducto` INT NOT NULL,
   PRIMARY KEY (`idCompra`, `idProducto`),
   INDEX `ID Producto_idx` (`idProducto` ASC) VISIBLE,
-  CONSTRAINT `ID Compra`
+  CONSTRAINT `ID Compra ComprasProductos`
     FOREIGN KEY (`idCompra`)
     REFERENCES `Compras` (`idCompra`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `ID Producto`
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `ID Producto ComprasProductos`
     FOREIGN KEY (`idProducto`)
     REFERENCES `Productos` (`idProducto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
 
 -- -----------------------------------------------------
--- Tabla `ComprasInconclusas`
+-- Table `DevolucionesCancelaciones`
 -- -----------------------------------------------------
-CREATE TABLE `ComprasInconclusas` (
+CREATE TABLE `DevolucionesCancelaciones` (
   `idCaso` INT NOT NULL AUTO_INCREMENT,
   `idProducto` INT NOT NULL,
   `idCompra` INT NOT NULL,
   `tipo` ENUM('Cancelacion', 'Devolucion') NOT NULL,
+  `cantidadDC` INT NOT NULL,
   PRIMARY KEY (`idCaso`),
   INDEX `ID Producto_idx` (`idProducto` ASC) VISIBLE,
   INDEX `ID Compra_idx` (`idCompra` ASC) VISIBLE,
-  CONSTRAINT `ID Producto`
+  CONSTRAINT `ID Producto DevolucionesCancelaciones`
     FOREIGN KEY (`idProducto`)
     REFERENCES `Productos` (`idProducto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `ID Compra`
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `ID Compra DevolucionesCancelaciones`
     FOREIGN KEY (`idCompra`)
     REFERENCES `Compras` (`idCompra`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
