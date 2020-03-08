@@ -2,6 +2,16 @@ CREATE DATABASE test;
 USE `test` ;
 
 -- -----------------------------------------------------
+-- Tabla `Asesores`
+-- -----------------------------------------------------
+CREATE TABLE `Asesores` (
+  `idAsesor` INT NOT NULL AUTO_INCREMENT,
+  `nombreAsesor` VARCHAR(45) NOT NULL,
+  `aPaternoAsesor` VARCHAR(45) NULL,
+  `aMaternoAsesor` VARCHAR(45) NULL,
+  PRIMARY KEY (`idAsesor`));
+
+-- -----------------------------------------------------
 -- Tabla `CategoriaClientes`
 -- -----------------------------------------------------
 CREATE TABLE `CategoriaClientes` (
@@ -62,7 +72,7 @@ CREATE TABLE `Productos` (
   `idCategoriaProducto` INT NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `marca` VARCHAR(45) NOT NULL,
-  `descripcion` VARCHAR(150) NULL,
+  `descripcion` VARCHAR(1000) NULL,
   `precio` DECIMAL(10,2) NOT NULL,
   `stock` INT NOT NULL,
   PRIMARY KEY (`idProducto`),
@@ -102,15 +112,21 @@ CREATE TABLE `Compras` (
 -- -----------------------------------------------------
 CREATE TABLE `HistorialAtencion` (
   `idAtencion` INT NOT NULL AUTO_INCREMENT,
+  `idAsesor` INT NOT NULL,
   `idCliente` INT NOT NULL,
-  `nombreAsesor` VARCHAR(45) NOT NULL,
-  `estado` VARCHAR(45) NOT NULL,
-  `comentarios` VARCHAR(45) NOT NULL,
+  `estado` ENUM('Abierto', 'Cerrado') NOT NULL,
+  `comentarios` VARCHAR(1000) NULL,
   PRIMARY KEY (`idAtencion`),
   INDEX `ID Cliente_idx` (`idCliente` ASC) VISIBLE,
+  INDEX `ID Asesor HistorialAtencion_idx` (`idAsesor` ASC) VISIBLE,
   CONSTRAINT `ID Cliente HistorialAtencion`
     FOREIGN KEY (`idCliente`)
     REFERENCES `Clientes` (`idCliente`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `ID Asesor HistorialAtencion`
+    FOREIGN KEY (`idAsesor`)
+    REFERENCES `Asesores` (`idAsesor`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 
