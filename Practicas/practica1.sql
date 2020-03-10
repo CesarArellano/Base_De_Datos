@@ -28,17 +28,18 @@ INSERT INTO `Asesores` (`idAsesor`, `nombreAsesor`, `aPaternoAsesor`, `aMaternoA
 CREATE TABLE `CategoriaClientes` (
   `idCategoriaCliente` INT NOT NULL AUTO_INCREMENT,
   `nombreCategoriaCliente` VARCHAR(45) NOT NULL,
+  `porcentajeEnvio` decimal(6,2) NOT NULL
   PRIMARY KEY (`idCategoriaCliente`));
 
 -- -----------------------------------------------------
 -- Registros `CategoriaClientes`
 -- -----------------------------------------------------
-INSERT INTO `CategoriaClientes` (`idCategoriaCliente`, `nombreCategoriaCliente`) VALUES
-(1, 'Novato'),
-(2, 'Principiante'),
-(3, 'Intermedio'),
-(4, 'Avanzado'),
-(5, 'Entusiasta');
+INSERT INTO `CategoriaClientes` (`idCategoriaCliente`, `nombreCategoriaCliente`, `porcentajeEnvio`) VALUES
+(1, 'Novato', '0.20'),
+(2, 'Principiante', '0.15'),
+(3, 'Intermedio', '0.10'),
+(4, 'Avanzado', '0.05'),
+(5, 'Entusiasta', '0.02');
 
 -- -----------------------------------------------------
 -- Tabla `CategoriaProductos`
