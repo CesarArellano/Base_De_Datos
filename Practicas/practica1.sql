@@ -28,7 +28,7 @@ INSERT INTO `Asesores` (`idAsesor`, `nombreAsesor`, `aPaternoAsesor`, `aMaternoA
 CREATE TABLE `CategoriaClientes` (
   `idCategoriaCliente` INT NOT NULL AUTO_INCREMENT,
   `nombreCategoriaCliente` VARCHAR(45) NOT NULL,
-  `porcentajeEnvio` decimal(6,2) NOT NULL
+  `porcentajeEnvio` decimal(6,2) NOT NULL,
   PRIMARY KEY (`idCategoriaCliente`));
 
 -- -----------------------------------------------------
