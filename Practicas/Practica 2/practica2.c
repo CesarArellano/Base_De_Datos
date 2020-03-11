@@ -8,6 +8,7 @@ extern MYSQL Insertar_Asesores(MYSQL mysql);
 extern MYSQL Actualizar_Asesores(MYSQL mysql);
 extern MYSQL Borrar_Asesores(MYSQL mysql);
 extern MYSQL Ver_Asesores(MYSQL mysql);
+extern MYSQL Asesores_Casos_Resueltos(MYSQL mysql);
 
 int main(int argc, char *argv[])
 {
@@ -52,7 +53,8 @@ int main(int argc, char *argv[])
 					Borrar_Asesores(mysql);
 				if (Opcion2 == 4)
 					Ver_Asesores(mysql);
-
+				if (Opcion2 == 5)
+					Asesores_Casos_Resueltos(mysql);
 				Desconectar(mysql);
 			}while(Opcion2 != 7);				
 		}
