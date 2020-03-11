@@ -1,5 +1,5 @@
-aplicacion.exe: practica2.o conexion.o insertar.o actualizar.o eliminar.o
-	gcc -o aplicacion.exe practica2.o conexion.o insertar.o actualizar.o eliminar.o -lnsl -lm -lz -lmysqlclient
+aplicacion.exe: practica2.o conexion.o insertar.o actualizar.o eliminar.o leer.o
+	gcc -o aplicacion.exe practica2.o conexion.o insertar.o actualizar.o eliminar.o leer.o -lnsl -lm -lz -lmysqlclient
 
 practica2.o: practica2.c
 	gcc -c practica2.c
@@ -11,6 +11,9 @@ actualizar.o: actualizar.c
 	gcc -c actualizar.c
 eliminar.o: eliminar.c
 	gcc -c eliminar.c
+leer.o: leer.c
+	gcc -c leer.c
 	
 clean:
 	rm *.o
+	clear

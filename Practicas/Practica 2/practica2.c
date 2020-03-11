@@ -6,6 +6,8 @@ extern MYSQL Conectar(MYSQL mysql);
 extern void Desconectar(MYSQL mysql); 
 extern MYSQL Insertar_Asesores(MYSQL mysql);
 extern MYSQL Actualizar_Asesores(MYSQL mysql);
+extern MYSQL Borrar_Asesores(MYSQL mysql);
+extern MYSQL Ver_Asesores(MYSQL mysql);
 
 int main(int argc, char *argv[])
 {
@@ -30,6 +32,8 @@ int main(int argc, char *argv[])
 			do
 			{
 				system("clear");
+				mysql = Conectar(mysql);
+				printf("Menú Asesores:\n");
 				printf("1.- Registrar asesor.\n");
 				printf("2.- Actualizar información del asesor.\n");
 				printf("3.- Borrar un asesor.\n");
@@ -39,20 +43,17 @@ int main(int argc, char *argv[])
 				printf("7.- Regresar al menú principal\n");
 				printf("Escoja una opción\n");
 				scanf(" %d",&Opcion2);
-
+				system("clear");
 				if (Opcion2 == 1)
-				{
-					mysql = Conectar(mysql);
 					Insertar_Asesores(mysql);
-					Desconectar(mysql);
-				}
-				if (Opcion2 == 2)
-				{
-					mysql = Conectar(mysql);
+				if (Opcion2 == 2)					
 					Actualizar_Asesores(mysql);
-					Desconectar(mysql);
-				}
+				if (Opcion2 == 3)	
+					Borrar_Asesores(mysql);
+				if (Opcion2 == 4)
+					Ver_Asesores(mysql);
 
+				Desconectar(mysql);
 			}while(Opcion2 != 7);				
 		}
 	}while(Opcion !=7);

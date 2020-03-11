@@ -6,7 +6,7 @@ MYSQL Insertar_Asesores(MYSQL mysql);
 
 MYSQL Insertar_Asesores(MYSQL mysql)
 {
-	char buffer[1024];
+	char Letra, buffer[1024];
 	char NombreTemp [45], APaternoTemp[45],AMaternoTemp[45];
 	printf("Ingresa el nombre del asesor\n");
 	scanf (" %[^\n]",NombreTemp);
@@ -23,6 +23,7 @@ MYSQL Insertar_Asesores(MYSQL mysql)
 		exit(1);
 	}
 	printf("Se agregó correctamente el asesor\n");
-	system("sleep 0.6");
+	printf("Ingrese una letra para continuar...\n");
+	scanf(" %c",&Letra);
 	return mysql;
 }

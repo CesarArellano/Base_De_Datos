@@ -32,6 +32,4 @@ MYSQL Conectar(MYSQL mysql)
 void Desconectar(MYSQL mysql)
 {
 	mysql_close(&mysql);
-	printf("Se cerró la conexión \n");
-	system("sleep 1");
 }
