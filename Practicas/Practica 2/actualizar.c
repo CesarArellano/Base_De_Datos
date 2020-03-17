@@ -7,7 +7,7 @@ MYSQL Actualizar_Asesores(MYSQL mysql);
 MYSQL Actualizar_Asesores(MYSQL mysql)
 {
 	int IDTemp;
-	char Letra, buffer[1024];
+	char buffer[1024];
 	char NombreTemp [45], APaternoTemp[45],AMaternoTemp[45];
 	printf("Ingrese el id del asesor\n");
 	scanf (" %d",&IDTemp);
@@ -26,7 +26,8 @@ MYSQL Actualizar_Asesores(MYSQL mysql)
 		exit(1);
 	}
 	printf("Se actualizó correctamente el asesor\n");
-	printf("Ingrese una letra para continuar...\n");
-	scanf(" %c",&Letra);
+	printf("Presione enter para continuar...");
+	__fpurge(stdin);
+	getchar();
 	return mysql;
 }

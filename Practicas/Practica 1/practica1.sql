@@ -2,6 +2,17 @@ CREATE DATABASE Practica1;
 USE `Practica1`;
 
 -- -----------------------------------------------------
+-- Tabla `Administradores`
+-- -----------------------------------------------------
+CREATE TABLE Administradores(
+  idAdministrador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    usuario VARCHAR(45) NOT NULL UNIQUE,
+    password VARCHAR(45) NOT NULL,
+    nombreAdministrador VARCHAR(50) NOT NULL,
+    aPaternoAdministrador VARCHAR(50) NOT NULL,
+    aMaternoAdministrador VARCHAR(50) NOT NULL
+);
+-- -----------------------------------------------------
 -- Tabla `Asesores`
 -- -----------------------------------------------------
 CREATE TABLE `Asesores` (

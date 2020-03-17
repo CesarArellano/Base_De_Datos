@@ -7,7 +7,7 @@ MYSQL Ver_Asesores(MYSQL mysql);
 MYSQL Ver_Asesores(MYSQL mysql)
 {
 	int i;
-	char Letra, *buffer = "SELECT * FROM Asesores";
+	char *buffer = "SELECT * FROM Asesores";
 	MYSQL_RES *res;
 	MYSQL_ROW row;	
 
@@ -34,8 +34,9 @@ MYSQL Ver_Asesores(MYSQL mysql)
 		}
 		printf("\n");
 	}
-	printf("Ingrese una letra para continuar...\n");
-	scanf(" %c",&Letra);
 	mysql_free_result(res);
+	printf("Presione enter para continuar...");
+	__fpurge(stdin);
+	getchar();
 	return mysql;
 }
