@@ -6,6 +6,7 @@
 MYSQL Insertar_Asesores(MYSQL mysql);
 MYSQL Insertar_Compras(MYSQL mysql);
 MYSQL Insertar_Casos(MYSQL mysql);
+MYSQL Insertar_Clientes(MYSQL mysql);
 void Timestamp(char Timestamp[]);
 
 void Timestamp(char Timestamp[]) //Esta función obtiene la fecha y hora actual y las guarda en una cadena de salida
@@ -21,7 +22,7 @@ MYSQL Insertar_Asesores(MYSQL mysql)
 {
 	char buffer[1024];
 	char NombreTemp [45], APaternoTemp[45],AMaternoTemp[45];
-	printf("Ingresa el nombre del asesor\n");
+	printf("Ingresa nombre(s) del asesor\n");
 	scanf (" %[^\n]",NombreTemp);
 	printf("Ingresa el apellido paterno del asesor\n");
 	scanf (" %[^\n]",APaternoTemp);
@@ -52,6 +53,8 @@ MYSQL Insertar_Compras(MYSQL mysql)
 	printf("Ingresa el ID del cliente\n");
 	scanf (" %d",&IDTemp);
 	CuantosProductos = "SELECT COUNT(idProducto) FROM Productos";
+	
+	//Ejecuta el query.
 	if(mysql_query(&mysql,CuantosProductos))
 	{
 		printf("Error al ejecutar el query: %s\n", mysql_error(&mysql));
@@ -161,4 +164,42 @@ MYSQL Insertar_Casos(MYSQL mysql)
 	__fpurge(stdin);
 	getchar();
 	return mysql;
+}
+
+MYSQL Insertar_Clientes(MYSQL mysql)
+{
+	char buffer[1024];
+	char NombreTemp [45], APaternoTemp[45],AMaternoTemp[45], UsuarioTemp[45], PasswordTemp[45], RFCTemp[13],DireccionEnvioTemp[150],DireccionFacturacionTemp[150];
+	printf("Ingresa nombre(s) del cliente\n");
+	scanf (" %[^\n]",NombreTemp);
+	printf("Ingresa el apellido paterno del cliente\n");
+	scanf (" %[^\n]",APaternoTemp);
+	printf("Ingresa el apellido materno del cliente\n");
+	scanf (" %[^\n]",AMaternoTemp);
+	printf("Ingresa tu usuario\n");
+	scanf (" %[^\n]",UsuarioTemp);
+	printf("Ingresa tu contraseña\n");
+	scanf (" %[^\n]",PasswordTemp);
+	printf("Ingresa tu RFC\n");
+	scanf (" %[^\n]",RFCTemp);
+	printf("Ingresa tu dirección de envío\n");
+	scanf (" %[^\n]",DireccionEnvioTemp);
+	printf("Ingresa tu dirección de facturación\n");
+	scanf (" %[^\n]",DireccionFacturacionTemp);
+
+	sprintf(buffer,"INSERT INTO Clientes(idCategoriaCliente,usuario,password,nombreCliente,aPaternoCliente,aMaternoCliente,rfc,direccionEnvio,direccionFacturacion) VALUES  (1,'%s','%s','%s','%s','%s','%s','%s','%s')",UsuarioTemp,PasswordTemp,NombreTemp,APaternoTemp,AMaternoTemp,RFCTemp,DireccionEnvioTemp,DireccionFacturacionTemp);
+
+	if(mysql_query(&mysql,buffer))
+	{
+		printf("Error al ejecutar el query: %s\n", mysql_error(&mysql));
+		exit(1);
+	}
+	system("clear");
+	printf("¡Felicidades te registraste con éxito!\n");
+	printf("Por ser cliente nuevo su categoria actual es 'Novato'\n");
+	printf("Presione enter para continuar...");
+	__fpurge(stdin);
+	getchar();
+	return mysql;
+
 }
