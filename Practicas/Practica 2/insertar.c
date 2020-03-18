@@ -7,6 +7,7 @@ MYSQL Insertar_Asesores(MYSQL mysql);
 MYSQL Insertar_Compras(MYSQL mysql);
 MYSQL Insertar_Casos(MYSQL mysql);
 MYSQL Insertar_Clientes(MYSQL mysql);
+MYSQL Insertar_Productos(MYSQL mysql);
 void Timestamp(char Timestamp[]);
 
 void Timestamp(char Timestamp[]) //Esta función obtiene la fecha y hora actual y las guarda en una cadena de salida
@@ -201,5 +202,40 @@ MYSQL Insertar_Clientes(MYSQL mysql)
 	__fpurge(stdin);
 	getchar();
 	return mysql;
+}
 
+MYSQL Insertar_Productos(MYSQL mysql)
+{
+	int IDDepartamentoTemp, IDCategoriaProductoTemp, StockTemp;
+	double PrecioTemp;
+	char buffer[1500], NombreTemp [45], MarcaTemp[45],DescripcionTemp[1000];
+	
+	printf("Ingresa ID del departamento para el nuevo producto\n");
+	scanf (" %d",&IDDepartamentoTemp);
+	printf("Ingresa ID de la categoria para el nuevo producto\n");
+	scanf (" %d",&IDCategoriaProductoTemp);
+	printf("Ingresa nombre del producto\n");
+	scanf (" %[^\n]",NombreTemp);
+	printf("Ingresa marca del producto\n");
+	scanf (" %[^\n]",MarcaTemp);
+	printf("Ingresa la descripción del producto\n");
+	scanf (" %[^\n]",DescripcionTemp);
+	printf("Ingresa precio del producto\n");
+	scanf (" %lf",&PrecioTemp);
+	printf("Ingresa stock del producto\n");
+	scanf (" %d",&StockTemp);
+
+	sprintf(buffer,"INSERT INTO Productos(idDepartamento,idCategoriaProducto,nombre,marca,descripcion,precio,stock) VALUES  (%d,%d,'%s','%s','%s',%lf,%d)",IDDepartamentoTemp,IDCategoriaProductoTemp,NombreTemp,MarcaTemp,DescripcionTemp,PrecioTemp,StockTemp);
+
+	if(mysql_query(&mysql,buffer))
+	{
+		printf("Error al ejecutar el query: %s\n", mysql_error(&mysql));
+		exit(1);
+	}
+	system("clear");
+	printf("Se registró correctamente el nuevo producto\n");
+	printf("Presione enter para continuar...");
+	__fpurge(stdin);
+	getchar();
+	return mysql;
 }

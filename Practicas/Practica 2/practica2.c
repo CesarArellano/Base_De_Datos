@@ -18,6 +18,11 @@ extern MYSQL Actualizar_Historiales(MYSQL mysql);
 extern MYSQL Borrar_Historiales(MYSQL mysql);
 extern MYSQL Ver_Historiales(MYSQL mysql);
 extern MYSQL Historiales_Clientes(MYSQL mysql);
+extern MYSQL Insertar_Productos(MYSQL mysql);
+extern MYSQL Actualizar_Productos(MYSQL mysql);
+extern MYSQL Borrar_Productos(MYSQL mysql);
+extern MYSQL Ver_Productos(MYSQL mysql);
+extern MYSQL Productos_Categoria(MYSQL mysql);
 int Iniciar_Sesion(int TipoUsuario, int *IDUsuario, char NombreUsuario[50]);
 void Menu_Admin(int IDUsuario, char NombreUsuario[50]);
 void Menu_Cliente(int IDUsuario, char NombreUsuario[50]);
@@ -135,9 +140,9 @@ void Menu_Admin(int IDUsuario, char NombreUsuario[50])
 		printf("\t1.- Asesores.\n"); // César
 		printf("\t2.- Clientes.\n");  // Raúl
 		printf("\t3.- Compras.\n"); // César
-		printf("\t4.- Devoluciones y cancelaciones.\n"); // César
+		printf("\t4.- Devoluciones y cancelaciones.\n"); // Raúl
 		printf("\t5.- Atención a clientes.\n"); // César
-		printf("\t6.- Productos.\n"); // Raúl
+		printf("\t6.- Productos.\n"); // Cesar
 		printf("\t7.- Regresar al menú principal.\n");
 		printf("Escoja una opción\n");
 		scanf(" %d",&Opcion);		
@@ -339,7 +344,7 @@ void Menu_Admin(int IDUsuario, char NombreUsuario[50])
 				Desconectar(mysql);
 			}while(Opcion2 != 5);
 		}
-		/*
+		
 		else if (Opcion == 6)
 		{
 			do
@@ -351,7 +356,7 @@ void Menu_Admin(int IDUsuario, char NombreUsuario[50])
 				printf("\t2.- Actualizar información de un producto.\n");
 				printf("\t3.- Borrar un producto.\n");
 				printf("\t4.- Lista de todos los productos.\n");
-				printf("\t5.- Lista de todos los productos de una categoría en particular, mostrando su nombre, descripción\ny comentarios (en su caso) de clientes que hayan opinado acerca de dicho producto.\n");
+				printf("\t5.- Lista de todos los productos de una categoría en particular, mostrando su nombre, descripción\n\ty comentarios (en su caso) de clientes que hayan opinado acerca de dicho producto.\n");
 				printf("\t6.- Regresar al menú administradores\n");
 				printf("Escoja una opción\n");
 				scanf(" %d",&Opcion2);
@@ -379,7 +384,6 @@ void Menu_Admin(int IDUsuario, char NombreUsuario[50])
 				Desconectar(mysql);
 			}while(Opcion2 != 6);
 		}
-		*/
 		else if (Opcion == 7)
 			printf("Saliendo del menú de administradores\n");
 		else
@@ -404,7 +408,7 @@ void Menu_Cliente(int IDUsuario, char NombreUsuario[50])
 		printf("\t1.- Actualizar mi información.\n");
 		printf("\t2.- Realizar una compra.\n");
 		printf("\t3.- Ver Productos\n");
-		printf("\t4.- Agregar comentario de un producto.\n");
+		printf("\t4.- Agregar opinión de un producto.\n");
 		printf("\t5.- Agregar una queja o aclaración.\n");
 		printf("\t6.- Regresar al menú principal\n");
 		printf("Escoja una opción\n");

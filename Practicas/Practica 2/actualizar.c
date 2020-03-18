@@ -5,6 +5,7 @@
 
 MYSQL Actualizar_Asesores(MYSQL mysql);
 MYSQL Actualizar_Historiales(MYSQL mysql);
+MYSQL Actualizar_Productos(MYSQL mysql);
 
 MYSQL Actualizar_Asesores(MYSQL mysql)
 {
@@ -77,6 +78,44 @@ MYSQL Actualizar_Historiales(MYSQL mysql)
 
 	mysql_free_result(res);
 
+	printf("Presione enter para continuar...");
+	__fpurge(stdin);
+	getchar();
+	return mysql;
+}
+
+MYSQL Actualizar_Productos(MYSQL mysql)
+{
+	int IDProductoTemp, IDDepartamentoTemp, IDCategoriaProductoTemp, StockTemp;
+	double PrecioTemp;
+	char buffer[1500], NombreTemp [45], MarcaTemp[45],DescripcionTemp[1000];
+	
+	printf("Ingresa ID del producto\n");
+	scanf (" %d",&IDProductoTemp);
+	printf("Ingresa ID del departamento del producto\n");
+	scanf (" %d",&IDDepartamentoTemp);
+	printf("Ingresa ID de la categoria del producto\n");
+	scanf (" %d",&IDCategoriaProductoTemp);
+	printf("Ingresa nombre del producto\n");
+	scanf (" %[^\n]",NombreTemp);
+	printf("Ingresa marca del producto\n");
+	scanf (" %[^\n]",MarcaTemp);
+	printf("Ingresa la descripción del producto\n");
+	scanf (" %[^\n]",DescripcionTemp);
+	printf("Ingresa precio del producto\n");
+	scanf (" %lf",&PrecioTemp);
+	printf("Ingresa stock del producto\n");
+	scanf (" %d",&StockTemp);
+
+	sprintf(buffer,"UPDATE Productos SET idDepartamento = %d,idCategoriaProducto = %d,nombre = '%s',marca = '%s',descripcion = '%s',precio = %lf,stock = %d WHERE idProducto = %d",IDDepartamentoTemp,IDCategoriaProductoTemp,NombreTemp,MarcaTemp,DescripcionTemp,PrecioTemp,StockTemp,IDProductoTemp);
+
+	if(mysql_query(&mysql,buffer))
+	{
+		printf("Error al ejecutar el query: %s\n", mysql_error(&mysql));
+		exit(1);
+	}
+	system("clear");
+	printf("Se actualizó correctamente el producto\n");
 	printf("Presione enter para continuar...");
 	__fpurge(stdin);
 	getchar();

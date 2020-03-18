@@ -4,11 +4,12 @@
 
 MYSQL Ver_Asesores(MYSQL mysql);
 MYSQL Ver_Historiales(MYSQL mysql);
+MYSQL Ver_Productos(MYSQL mysql);
+MYSQL Ejecutar_Query_Leer(MYSQL mysql, char buffer[]);
 
-MYSQL Ver_Asesores(MYSQL mysql)
+MYSQL Ejecutar_Query_Leer(MYSQL mysql, char buffer[])
 {
 	int i;
-	char *buffer = "SELECT * FROM Asesores";
 	MYSQL_RES *res;
 	MYSQL_ROW row;	
 
@@ -33,7 +34,7 @@ MYSQL Ver_Asesores(MYSQL mysql)
 			else
 				printf("---");
 		}
-		printf("\n");
+		printf("\n\n");
 	}
 	mysql_free_result(res);
 	printf("Presione enter para continuar...");
@@ -42,39 +43,23 @@ MYSQL Ver_Asesores(MYSQL mysql)
 	return mysql;
 }
 
+MYSQL Ver_Asesores(MYSQL mysql)
+{
+	char *buffer = "SELECT * FROM Asesores";
+	mysql = Ejecutar_Query_Leer(mysql,buffer);
+	return mysql;
+}
+
 MYSQL Ver_Historiales(MYSQL mysql)
 {
-	int i;
 	char *buffer = "SELECT * FROM HistorialAtencion";
-	MYSQL_RES *res;
-	MYSQL_ROW row;	
+	mysql = Ejecutar_Query_Leer(mysql,buffer);
+	return mysql;
+}
 
-	if(mysql_query(&mysql,buffer))
-	{
-		printf("Error al ejecutar el query: %s\n", mysql_error(&mysql));
-		exit(1);
-	}
-	// Obtenemos el result set.
-	if(!(res = mysql_store_result(&mysql)))
-	{
-		printf("Error al obtener el query: %s\n", mysql_error(&mysql));
-		exit(1);
-	}
-	// Desplegamos el resultset
-	while((row = mysql_fetch_row(res)))
-	{
-		for(i=0;i<mysql_num_fields(res);i++)
-		{
-			if(row[i] != NULL)
-				printf("%s, ",row[i]);
-			else
-				printf("---");
-		}
-		printf("\n");
-	}
-	mysql_free_result(res);
-	printf("Presione enter para continuar...");
-	__fpurge(stdin);
-	getchar();
+MYSQL Ver_Productos(MYSQL mysql)
+{
+	char *buffer = "SELECT * FROM Productos";
+	mysql = Ejecutar_Query_Leer(mysql,buffer);
 	return mysql;
 }
