@@ -34,7 +34,7 @@ BEGIN
     SELECT nombre, descripcion, COUNT(idOpinion) AS Cuantos_Comentarios FROM CategoriaProductos RIGHT JOIN Productos USING(idCategoriaProducto) LEFT JOIN Opiniones USING(idProducto) WHERE nombreCategoriaProducto = categoria GROUP BY idProducto;
 END
 -- Cuántas cancelaciones y devoluciones se han hecho y cuál es el producto más devuelto. --
-9.- SELECT idProducto, nombre AS Producto, descripcion, precio, COUNT(idProducto) AS 'Veces cancelado' FROM Productos RIGHT JOIN DevolucionesCancelaciones USING (idProducto) GROUP BY idProducto HAVING idProducto = (SELECT idProducto FROM Productos RIGHT JOIN DevolucionesCancelaciones USING (idProducto) GROUP BY idProducto LIMIT 1);
+9.- SELECT idProducto, nombre AS Producto, precio, SUM(cantidadDC) AS 'Veces cancelado/devuelto' FROM Productos RIGHT JOIN DevolucionesCancelaciones USING (idProducto) WHERE idProducto = (SELECT idProducto FROM Productos RIGHT JOIN DevolucionesCancelaciones USING (idProducto) GROUP BY idProducto ORDER BY SUM(cantidadDC) DESC LIMIT 1);
 -- Lista de los clientes con su información completa para poder hacer una entrega. --
 10.- SELECT idCompra, nombre AS nombreProducto, cantidadProducto, nombreCliente, aPaternoCliente,aMaternoCliente, direccionEnvio FROM Clientes INNER JOIN Compras USING(idCliente) INNER JOIN ComprasProductos USING(idCompra) INNER JOIN Productos USING(idProducto);
 /* Realizar un procedimiento que reciba el id del producto, y la cantidad de productos a comprar y

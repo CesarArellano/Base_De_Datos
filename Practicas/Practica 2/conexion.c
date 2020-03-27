@@ -3,8 +3,7 @@
 #include <mysql/mysql.h>
 
 MYSQL Conectar(MYSQL mysql);
-void Desconectar(MYSQL mysql); 
-
+void Desconectar(MYSQL mysql);
 
 MYSQL Conectar(MYSQL mysql)
 {

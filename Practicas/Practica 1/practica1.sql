@@ -1,5 +1,5 @@
-CREATE DATABASE Practica1;
-USE `Practica1`;
+CREATE DATABASE Practica2;
+USE `Practica2`;
 
 -- -----------------------------------------------------
 -- Tabla `Administradores`
@@ -322,7 +322,7 @@ CREATE TABLE `TarjetasClientes` (
   `institucionFinanciera` ENUM('American Express','Mastercard','Visa') NOT NULL,
   PRIMARY KEY (`idTarjeta`),
   INDEX `ID Cliente_idx` (`idCliente` ASC) VISIBLE,
-  CONSTRAINT `ID Cliente TarjetasClientes` 
+  CONSTRAINT `ID Cliente TarjetasClientes`
     FOREIGN KEY (`idCliente`)
     REFERENCES `Clientes` (`idCliente`)
     ON DELETE CASCADE

@@ -1,7 +1,0 @@
-Temas de examen:
-EDOs lineales homogéneas de coeficientes constantes
-Método de reducción de orden (coeficientes no constantes)
-EDOs lineales no-homogéneas de coeficientes constantes
-Método de coeficientes indeterminados
-Método de variación de parámetros (orden ≥2)
-Ecuación de Euler-Cauchy
